@@ -25,40 +25,40 @@ tokens = [
 # A string containing ignored characters (spaces, tabs and newline)
 t_ignore  = ' \t\n'
 
-def t_LT(t):
-    r'\<'
-    t.type = 'RELOP'
-    t.value = 'LT'
-    return t
-
 def t_LE(t):
-    r'\<='
+    r'<='
     t.type = 'RELOP'
     t.value = 'LE'
     return t
 
-def t_EQ(t):
-    r'\='
-    t.type = 'RELOP'
-    t.value = 'EQ'
-    return t
-
 def t_NE(t):
-    r'\<>'
+    r'<>'
     t.type = 'RELOP'
     t.value = 'NE'
     return t
 
+def t_GE(t):
+    r'>='
+    t.type = 'RELOP'
+    t.value = 'GE'
+    return t
+
+def t_LT(t):
+    r'<'
+    t.type = 'RELOP'
+    t.value = 'LT'
+    return t
+
 def t_GT(t):
-    r'\>'
+    r'>'
     t.type = 'RELOP'
     t.value = 'GT'
     return t
 
-def t_GE(t):
-    r'\>='
+def t_EQ(t):
+    r'='
     t.type = 'RELOP'
-    t.value = 'GE'
+    t.value = 'EQ'
     return t
 
 def t_ID(t):
@@ -77,21 +77,29 @@ def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
 
-# Build the lexer
-lexer = lex.lex()
+class Ex351Lexer:
+    data = None
+    lexer = None
 
-# Test it out
-data = '''
-if x then 3 < 4 else 20 >= 1
-'''
+    def __init__(self):
+        self.lexer = lex.lex()
 
-# Give the lexer some input
-lexer.input(data)
+    def setData(self, data):
+        self.data = data
+        self.lexer.input(data)
+        
+    def tokenize(self):
+        tokens = []
+        while True:
+            tok = self.lexer.token()
+            if not tok:
+                break      # No more input
+            tokens.append(tok)
+        return tokens
 
-# Tokenize
-while True:
-    tok = lexer.token()
-    if not tok:
-        break      # No more input
-    print(tok)
+if __name__ == '__main__':
+    lex = Ex351Lexer()
+    lex.setData("if x then 3 <= 4 else 20 >= 1")
+    print(lex.tokenize())
+
 
