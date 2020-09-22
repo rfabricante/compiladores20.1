@@ -101,5 +101,3 @@ if __name__ == '__main__':
     lex = Ex351Lexer()
     lex.setData("if x then 3 <= 4 else 20 >= 1")
     print(lex.tokenize())
-
-
