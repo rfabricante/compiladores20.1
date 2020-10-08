@@ -4,3 +4,4 @@ Exercicios resolvidos de compiladores.
 ### Resolvidos até agora: 
 - Avaliação: Análise Léxica - Exercício 3.5.1
 - Avaliação: Análise Léxica - Processador de Log
+- Av: Análise Sintática I - Parsing preditivo
